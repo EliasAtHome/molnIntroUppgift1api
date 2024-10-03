@@ -34,7 +34,7 @@ public class BookService {
         Optional<Books> currentBookOptional = booksRepo.findById(id);
 
         if (currentBookOptional.isPresent()) {
-            Books currentBook = currentBookOptional.get();
+            Books currentBook = currentBookOptional.get(); //test pipeline
 
             // Uppdatera titel om den är olika
             if (!currentBook.getTitle().equals(book.getTitle())) {
