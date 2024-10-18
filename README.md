@@ -25,7 +25,7 @@ Nedan beskrivs CI/CD processen med förklaringar av de Noder som sekvensen går 
 
 - AWS CodeBuild: AWS Pipeline integrerar med AWS CodeBuild, som bygger applikation i en säker och skalbar miljö. CodeBuild laddar ner koden från GitHub, installerar nödvändiga beroenden och kör bygget basserat på den build-workflow man har gjort i CodeBuild inställningarna.
 
-AWS Elastic Beanstalk: När byggprocessen är klar distribuerar CodeBuild den färdiga applikationen till AWS Elastic Beanstalk, där applikationen hostas och hanteras. Elastic Beanstalk automatiserar infrastrukturhantering, inklusive serverkonfiguration och lastbalansering, vilket gör att vi som utvecklare kan fokusera på kodutveckling snarare än drift. För drift är svårt!
+- AWS Elastic Beanstalk: När byggprocessen är klar distribuerar CodeBuild den färdiga applikationen till AWS Elastic Beanstalk, där applikationen hostas och hanteras. Elastic Beanstalk automatiserar infrastrukturhantering, inklusive serverkonfiguration och lastbalansering, vilket gör att vi som utvecklare kan fokusera på kodutveckling snarare än drift. För drift är svårt!
 
 ### Github Actions:
 ![image](https://github.com/user-attachments/assets/aad0f5e4-14bf-4097-add0-9ee97939b457)
