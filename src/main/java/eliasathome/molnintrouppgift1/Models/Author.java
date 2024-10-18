@@ -20,7 +20,7 @@ public class Author {
 
     private String name;
 
-    private int age;
+    private Integer age;
 
     public Author(String name) {
         this.name = name;
