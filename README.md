@@ -7,7 +7,8 @@ Detta projekt är en Maven Spring Boot-applikation med CI/CD pipeline via GitHub
 ### Teknisk Specifikation
 - Tekniker: Java, Maven, Spring Boot, GitHub Actions, AWS.
 - CI/CD Tools: GitHub Actions och AWS.
-- Testning : Github Actions och AWS samt Unittester på Controllerklasser,
+- Testning : Github Actions och AWS samt Unittester på Controllerklasser.
+  
 ## Installation
 1. Klona repositoryn:
    ```bash
@@ -41,9 +42,11 @@ AWS Elastic Beanstalk: När byggprocessen är klar distribuerar CodeBuild den f�
 ![image](https://github.com/user-attachments/assets/acb117d4-f798-4650-83b1-6c0bfc0dc301)
 
 - AWS CodeBuild:
+  
 ![image](https://github.com/user-attachments/assets/db33f8ff-171b-41b5-8cb2-45d1f8e9b3cd)
 
 - AWS BeansStalk:
+ 
 ![image](https://github.com/user-attachments/assets/c2ec9ae5-565e-472b-97fd-f57718a1d849)
 
 
@@ -54,6 +57,7 @@ Eftersom jag använder Swagger för Endpoint-Dokumentation länkas därför Swag
   (För att komma till endpoint som beskrivs i bilderna nedan: använd länkan ovanför och skriv exempelvis books -> /books)
   
 - Swaggerlänk till listan av alla endpoints i projektet: http://test1-env.eba-ghgfdppk.eu-north-1.elasticbeanstalk.com/swagger-ui/index.html#/
+ 
 ![image](https://github.com/user-attachments/assets/016cae86-9e1a-4b7d-b4ce-ef6fdfd1565c)
 
 ![image](https://github.com/user-attachments/assets/c0e86481-8c81-4ec7-952f-cdc6cc741f07)
@@ -61,13 +65,15 @@ Eftersom jag använder Swagger för Endpoint-Dokumentation länkas därför Swag
 
 ## Databas:
 - Aws RDS. Databasen är en MySql databas som är skapad och driftas via AWS RDS.
-![image](https://github.com/user-attachments/assets/c3db41ba-a34c-4f92-a034-d37570236ee7),
+- 
+![image](https://github.com/user-attachments/assets/c3db41ba-a34c-4f92-a034-d37570236ee7)
+
 
 ![image](https://github.com/user-attachments/assets/49731451-36ab-488d-aae0-f142a40b4405)
 
 
-## Testning
+## Testning:
 I CI/CD ingår det att varje kodändring som triggas av en PUSH-event går igenom UnitTester för att säkerställa att koden är säker och följer kvaliteten som är uppsatt i Definition of Done. I detta projekt finns därför några få tester till vardera Service klass.
 
-## Andra Klient.
+## VG-Del av uppgift:
 I ett annat repo ligger en grundläggande klient för att hantera CRUD-operationer till denna webbservice.
