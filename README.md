@@ -62,6 +62,10 @@ Eftersom jag använder Swagger för Endpoint-Dokumentation länkas därför Swag
 
 ![image](https://github.com/user-attachments/assets/c0e86481-8c81-4ec7-952f-cdc6cc741f07)
 
+- Hur det ser ut efter en Get/authors i webbläsaren:
+
+![image](https://github.com/user-attachments/assets/dbe770a5-0088-48ad-8bfb-7c4ee9b9b2e2)
+
 
 ## Databas:
 - Aws RDS. Databasen är en MySql databas som är skapad och driftas via AWS RDS.
