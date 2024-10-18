@@ -1,15 +1,18 @@
 package eliasathome.molnintrouppgift1.Controller;
-
-
+import org.springframework.web.bind.annotation.RequestBody;
 import eliasathome.molnintrouppgift1.Models.Books;
+import eliasathome.molnintrouppgift1.Models.Author; // Importera Author-modellen
 import eliasathome.molnintrouppgift1.Service.BookService;
+import eliasathome.molnintrouppgift1.Service.AuthorService; // Importera AuthorService
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,12 +22,12 @@ import java.util.Optional;
 public class BooksController {
 
     private final BookService bookService;
+    private final AuthorService authorService; // Lägga till AuthorService
 
     @Operation(summary = "Get all books", description = "Retrieves a list of all books")
     @GetMapping("")
     public ResponseEntity<List<Books>> getAllBooks() {
         List<Books> books = bookService.getAllBooks();
-
         return ResponseEntity.ok(books);
     }
 
@@ -35,10 +38,22 @@ public class BooksController {
         return ResponseEntity.ok(book);
     }
 
-
-    @Operation(summary = "Create a new book", description = "Adds a new book to the system")
     @PostMapping("")
-    public ResponseEntity<Books> createNewBook(@RequestBody Books newBook) {
+    public ResponseEntity<Books> createNewBook(@RequestBody Map<String, Object> request) {
+        String title = (String) request.get("title");
+        String authorName = (String) request.get("authorName");
+        String isbn = (String) request.get("isbn");
+
+        Books newBook = new Books();
+        newBook.setTitle(title);
+        newBook.setIsbn(isbn);
+
+        Author author = authorService.findByName(authorName);
+        if (author == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Handle non-existing author
+        }
+
+        newBook.setAuthor(author);
         Books book = bookService.saveBook(newBook);
 
         return ResponseEntity.ok(book);
@@ -49,7 +64,6 @@ public class BooksController {
     public ResponseEntity<Books> updateOneBook(@PathVariable Long id,
                                                @RequestBody Books newBook) {
         Books patchedBook = bookService.patchBook(newBook, id);
-
         return ResponseEntity.ok(patchedBook);
     }
 
@@ -57,7 +71,6 @@ public class BooksController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOneBook(@PathVariable long id) {
         bookService.removeBook(id);
-
         return ResponseEntity.ok("Removed Successfully!");
     }
 }

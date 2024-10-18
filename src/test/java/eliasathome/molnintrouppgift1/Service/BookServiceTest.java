@@ -48,11 +48,11 @@ class BookServiceTest {
         Books existingBook = new Books();
         existingBook.setId(bookId);
         existingBook.setTitle("Old Title");
-        existingBook.setISBN("12345");
+        existingBook.setIsbn("12345");
 
         Books updatedBook = new Books();
         updatedBook.setTitle("New Title");
-        updatedBook.setISBN(null); // Ingen ISBN anges, så den ska förbli oförändrad
+        updatedBook.setIsbn(null); // Ingen ISBN anges, så den ska förbli oförändrad
 
         // Mocka repository
         when(booksRepo.findById(bookId)).thenReturn(Optional.of(existingBook));
@@ -63,7 +63,7 @@ class BookServiceTest {
 
         // Assert
         assertEquals("New Title", result.getTitle()); // Titeln ska ha uppdaterats
-        assertEquals("12345", result.getISBN());     // ISBN ska förbli oförändrat
+        assertEquals("12345", result.getIsbn());     // ISBN ska förbli oförändrat
     }
 
     @Test

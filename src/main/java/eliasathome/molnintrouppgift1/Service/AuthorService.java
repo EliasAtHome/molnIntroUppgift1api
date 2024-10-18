@@ -49,6 +49,17 @@ public class AuthorService {
     public void removeAuthor(Long id) {
         authorRepo.deleteById(id);
     }
+
+    public Author getAuthorById(long id) {
+        Optional<Author> author = authorRepo.findById(id);
+        return author.orElse(null);
+    }
+
+    public Author findByName(String name) {
+        Optional<Author> authorOptional = authorRepo.findByName(name);
+        return authorOptional.orElse(null); // Returnera författaren om den finns, annars null
+    }
+
 }
 
 

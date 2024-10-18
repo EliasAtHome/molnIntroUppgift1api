@@ -1,5 +1,5 @@
 package eliasathome.molnintrouppgift1.Models;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +22,11 @@ public class Author {
 
     private Integer age;
 
-    public Author(String name) {
+
+    public Author(String name, Integer age) {
         this.name = name;
+        this.age = age;
     }
+
+
 }

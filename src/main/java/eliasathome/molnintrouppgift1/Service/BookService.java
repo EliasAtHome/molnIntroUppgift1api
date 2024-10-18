@@ -27,30 +27,29 @@ public class BookService {
     }
 
     public Books saveBook(Books book) {
+        // Kontrollera att författaren är korrekt kopplad
+        if (book.getAuthor() == null || book.getAuthor().getId() == 0) {
+            throw new IllegalArgumentException("Author must be provided.");
+        }
         return booksRepo.save(book);
     }
 
-    public Books patchBook(Books book, Long id) {
-        Optional<Books> currentBookOptional = booksRepo.findById(id);
-
-        if (currentBookOptional.isPresent()) {
-            Books currentBook = currentBookOptional.get(); //test pipeline
-
-            // Uppdatera titel om den är olika
-            if (!currentBook.getTitle().equals(book.getTitle())) {
-                currentBook.setTitle(book.getTitle());
-            }
-
-            // Endast uppdatera ISBN om det är angivet
-            if (book.getISBN() != null && !book.getISBN().equals(currentBook.getISBN())) {
-                currentBook.setISBN(book.getISBN());
-            }
-
-            return booksRepo.save(currentBook);
-        } else {
-            // Hantera fallet när boken inte finns
-            throw new RuntimeException("Book not found with ID: " + id);
-        }
+    public Books patchBook(Books newBook, Long id) {
+        return booksRepo.findById(id)
+                .map(book -> {
+                    if (newBook.getTitle() != null) {
+                        book.setTitle(newBook.getTitle());
+                    }
+                    // Se till att ISBN inte blir null om det inte uppdateras
+                    if (newBook.getIsbn() != null) {
+                        book.setIsbn(newBook.getIsbn());
+                    }
+                    return booksRepo.save(book);
+                })
+                .orElseGet(() -> {
+                    newBook.setId(id);
+                    return booksRepo.save(newBook);
+                });
     }
 
     public void removeBook(Long id) {
