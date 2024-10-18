@@ -15,17 +15,17 @@ Detta projekt är en Maven Spring Boot-applikation med CI/CD pipeline via GitHub
    git clone https://github.com/EliasAtHome/molnIntroUppgift1api.git
 
 ## CI/CD
-Nedan beskrivs CI/CD processen med förklaringar av de Noder som sekvensen går igenom för att kunna hosta hela applikationen i Molnet. Det är hela ledet från där källkoden ligger i Repot till att det driftas och hostas på AWS i deras molntjänst.
+Nedan beskrivs CI/CD processen med förklaringar av de Noder som sekvensen går igenom för att kunna Automatisera CI/CD processen, och på så sätt hosta hela applikationen i Molnet. Det är hela ledet från där källkoden ligger i Repot till att det driftas och hostas på AWS i deras molntjänst.
 
 - Git Repository: Koden för webbapplikationen finns i ett Git-repo på GitHub. Ändringar i koden och pushas  till repot.
 
-- GitHub Actions: När en kodändring pushas till repot triggas en Action i Github. En CI/CD-pipeline definieras i en YAML-fil, som utför en serie steg för att bygga och testa applikationen. YAML-filen är alltså Workflow - seksvens av steg som triggas vid förändringar. Det kan inkludera enhetstester för att säkerställa att koden fungerar som förväntat vilket är Contineus Integration delevn av CI/CD.
+- GitHub Actions: När en kodändring pushas till repot triggas en Action i Github. En CI/CD-pipeline definieras i en YAML-fil, som utför en serie steg för att bygga och testa applikationen. YAML-filen definerar alltså ett Workflow - sekvens av steg som körs när event triggas vid förändringar. Nya förändringar går igenom UnitTester och enhetstester för att säkerställa att koden fungerar som förväntat vilket är Contineus Integration delevn av CI/CD.
 
 - AWS Pipeline: Om testerna går igenom, integreras Github Actions: workflow med en AWS Pipeline, som hanterar deployment-processen. Denna pipeline tar över och börjar med att bygga applikationen.
 
 - AWS CodeBuild: AWS Pipeline integrerar med AWS CodeBuild, som bygger applikation i en säker och skalbar miljö. CodeBuild laddar ner koden från GitHub, installerar nödvändiga beroenden och kör bygget basserat på den build-workflow man har gjort i CodeBuild inställningarna.
 
-- AWS Elastic Beanstalk: När byggprocessen är klar distribuerar CodeBuild den färdiga applikationen till AWS Elastic Beanstalk, där applikationen hostas och hanteras. Elastic Beanstalk automatiserar infrastrukturhantering, inklusive serverkonfiguration och lastbalansering, vilket gör att vi som utvecklare kan fokusera på kodutveckling snarare än drift. För drift är svårt!
+- AWS Elastic Beanstalk: När byggprocessen är klar distribuerar CodeBuild den färdiga applikationen till AWS Elastic Beanstalk, där applikationen hostas och hanteras. Elastic Beanstalk automatiserar infrastrukturhantering, inklusive serverkonfiguration och lastbalansering, vilket gör att vi som utvecklare kan fokusera på kodutveckling snarare än drift.
 
 ### Github Actions:
 ![image](https://github.com/user-attachments/assets/aad0f5e4-14bf-4097-add0-9ee97939b457)
