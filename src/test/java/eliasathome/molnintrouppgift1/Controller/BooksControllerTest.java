@@ -61,7 +61,7 @@ class BooksControllerTest {
         request.put("isbn", "123456789");
 
         Author author = new Author();
-        author.setId(1L); // Set a valid ID
+        author.setId(1L);
         author.setName("New Author");
 
         // Mocking the findByName method in authorService to return the author
@@ -69,7 +69,7 @@ class BooksControllerTest {
 
         // Mocking the saveBook method in bookService
         Books newBook = new Books();
-        newBook.setId(1L); // Set the expected ID for the new book
+        newBook.setId(1L);
         newBook.setTitle("New Book");
         newBook.setIsbn("123456789");
         newBook.setAuthor(author); // Ensure the author is set

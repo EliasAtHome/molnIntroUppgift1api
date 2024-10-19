@@ -1,6 +1,7 @@
 package eliasathome.molnintrouppgift1.Service;
 
 import eliasathome.molnintrouppgift1.Controller.BooksController;
+import eliasathome.molnintrouppgift1.Models.Author;
 import eliasathome.molnintrouppgift1.Models.Books;
 import eliasathome.molnintrouppgift1.Repo.BooksRepo;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,9 @@ import java.util.Optional;
 @Service
 public class BookService {
 
+
+
+    private final AuthorService authorService;
     private final BooksRepo booksRepo;
 
     public List<Books> getAllBooks() {
@@ -44,6 +48,12 @@ public class BookService {
                     if (newBook.getIsbn() != null) {
                         book.setIsbn(newBook.getIsbn());
                     }
+                    if (newBook.getAuthor() != null && newBook.getAuthor().getName() != null) {
+                        Author author = authorService.findByName(newBook.getAuthor().getName());
+                        if (author != null) {
+                            book.setAuthor(author);
+                        }
+                    }
                     return booksRepo.save(book);
                 })
                 .orElseGet(() -> {
@@ -64,4 +74,7 @@ public class BookService {
         booksRepo.deleteAll();
     }
 
+    public Optional<Books> findById(Long id) {
+        return booksRepo.findById(id); // Hämtar boken som är kopplad till ID:t
+    }
 }

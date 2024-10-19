@@ -43,7 +43,7 @@ public class AuthorController {
     }
 
     @Operation(summary = "Update an existing author", description = "Updates an existing author's information by their ID")
-    @PatchMapping("/{id}")
+    @PutMapping ("/{id}")
     public ResponseEntity<Author> updateOneAuthor(@PathVariable Long id,
                                                @RequestBody Author newAuthor) {
         Author patchedAuthor = authorService.patchAuthor(newAuthor, id);

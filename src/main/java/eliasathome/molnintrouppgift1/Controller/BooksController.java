@@ -60,11 +60,40 @@ public class BooksController {
     }
 
     @Operation(summary = "Update an existing book", description = "Updates an existing book's information by its ID")
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Books> updateOneBook(@PathVariable Long id,
-                                               @RequestBody Books newBook) {
-        Books patchedBook = bookService.patchBook(newBook, id);
-        return ResponseEntity.ok(patchedBook);
+                                               @RequestBody Map<String, Object> request) {
+        // Hämta boken baserat på ID
+        Optional<Books> optionalBook = bookService.findById(id);
+        if (optionalBook.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Returnera 404 om boken inte hittas
+        }
+
+        Books bookToUpdate = optionalBook.get();
+
+        if (request.containsKey("title")) {
+            bookToUpdate.setTitle((String) request.get("title"));
+        }
+
+        // Kontrollera och uppdatera ISBN om det finns i begäran
+        if (request.containsKey("isbn")) {
+            bookToUpdate.setIsbn((String) request.get("isbn"));
+        }
+
+        // Kontrollera och uppdatera författaren om författarnamn finns i begäran
+        if (request.containsKey("authorName")) {
+            String authorName = (String) request.get("authorName");
+            Author author = authorService.findByName(authorName);
+            if (author != null) {
+                bookToUpdate.setAuthor(author);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Hantera icke-existerande författare
+            }
+        }
+
+        // Spara den uppdaterade boken
+        Books updatedBook = bookService.saveBook(bookToUpdate);
+        return ResponseEntity.ok(updatedBook);
     }
 
     @Operation(summary = "Delete a book", description = "Removes a book from the system by its ID")
