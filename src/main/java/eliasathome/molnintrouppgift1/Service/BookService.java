@@ -31,7 +31,6 @@ public class BookService {
     }
 
     public Books saveBook(Books book) {
-        // Kontrollera att författaren är korrekt kopplad
         if (book.getAuthor() == null || book.getAuthor().getId() == 0) {
             throw new IllegalArgumentException("Author must be provided.");
         }
@@ -44,7 +43,6 @@ public class BookService {
                     if (newBook.getTitle() != null) {
                         book.setTitle(newBook.getTitle());
                     }
-                    // Se till att ISBN inte blir null om det inte uppdateras
                     if (newBook.getIsbn() != null) {
                         book.setIsbn(newBook.getIsbn());
                     }
@@ -75,6 +73,6 @@ public class BookService {
     }
 
     public Optional<Books> findById(Long id) {
-        return booksRepo.findById(id); // Hämtar boken som är kopplad till ID:t
+        return booksRepo.findById(id);
     }
 }

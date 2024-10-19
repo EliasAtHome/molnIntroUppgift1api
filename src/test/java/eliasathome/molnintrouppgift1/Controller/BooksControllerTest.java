@@ -23,7 +23,7 @@ class BooksControllerTest {
     private BookService bookService;
 
     @Mock
-    private AuthorService authorService; // Add this line
+    private AuthorService authorService;
 
     @InjectMocks
     private BooksController booksController;
@@ -57,17 +57,15 @@ class BooksControllerTest {
         // Arrange
         Map<String, Object> request = new HashMap<>();
         request.put("title", "New Book");
-        request.put("authorName", "New Author"); // Use the author's name instead of ID
+        request.put("authorName", "New Author");
         request.put("isbn", "123456789");
 
         Author author = new Author();
         author.setId(1L);
         author.setName("New Author");
 
-        // Mocking the findByName method in authorService to return the author
         when(authorService.findByName("New Author")).thenReturn(author);
 
-        // Mocking the saveBook method in bookService
         Books newBook = new Books();
         newBook.setId(1L);
         newBook.setTitle("New Book");
@@ -75,10 +73,8 @@ class BooksControllerTest {
         newBook.setAuthor(author); // Ensure the author is set
         when(bookService.saveBook(any(Books.class))).thenReturn(newBook);
 
-        // Act
         ResponseEntity<Books> response = booksController.createNewBook(request);
 
-        // Assert
         assertNotNull(response.getBody(), "Response body should not be null");
         assertEquals("New Book", response.getBody().getTitle(), "Book title should match the expected title");
         assertEquals(author.getId(), response.getBody().getAuthor().getId(), "Author ID should match the expected ID");
@@ -98,9 +94,9 @@ class BooksControllerTest {
 
         // Assert
         assertNotNull(response);
-        assertTrue(response.getStatusCode().is2xxSuccessful()); // Kontrollera att svaret är en 2xx-status
-        assertTrue(response.getBody().isPresent()); // Kontrollera att kroppen innehåller en bok
-        assertEquals("Test Book", response.getBody().get().getTitle()); // Kontrollera att titeln stämmer
+        assertTrue(response.getStatusCode().is2xxSuccessful());
+        assertTrue(response.getBody().isPresent());
+        assertEquals("Test Book", response.getBody().get().getTitle());
 
     }
 }

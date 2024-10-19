@@ -57,7 +57,7 @@ public class AuthorService {
 
     public Author findByName(String name) {
         Optional<Author> authorOptional = authorRepo.findByName(name);
-        return authorOptional.orElse(null); // Returnera författaren om den finns, annars null
+        return authorOptional.orElse(null);
     }
 
 }

@@ -19,17 +19,17 @@ import static org.mockito.Mockito.*;
 class BookServiceTest {
 
     @Mock
-    private BooksRepo booksRepo; // Mocka BooksRepo
+    private BooksRepo booksRepo;
 
     @Mock
-    private AuthorService authorService; // Mocka AuthorService
+    private AuthorService authorService;
 
     @InjectMocks
-    private BookService bookService; // Skapa instans av BookService med mockar
+    private BookService bookService;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this); // Initiera mockarna
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -60,9 +60,9 @@ class BookServiceTest {
 
         Books updatedBook = new Books();
         updatedBook.setTitle("New Title");
-        updatedBook.setIsbn(null); // Ingen ISBN anges, så den ska förbli oförändrad
+        updatedBook.setIsbn(null);
 
-        // Mocka repository
+
         when(booksRepo.findById(bookId)).thenReturn(Optional.of(existingBook));
         when(booksRepo.save(existingBook)).thenReturn(existingBook);
 
@@ -70,19 +70,17 @@ class BookServiceTest {
         Books result = bookService.patchBook(updatedBook, bookId);
 
         // Assert
-        assertEquals("New Title", result.getTitle()); // Titeln ska ha uppdaterats
-        assertEquals("12345", result.getIsbn());     // ISBN ska förbli oförändrat
+        assertEquals("New Title", result.getTitle());
+        assertEquals("12345", result.getIsbn());
     }
 
     @Test
     void removeBook() {
-        // Arrange
+
         Long bookId = 1L;
 
-        // Act
         bookService.removeBook(bookId);
 
-        // Assert
-        verify(booksRepo, times(1)).deleteById(bookId); // Kontrollera att deleteById anropas en gång med rätt ID
+        verify(booksRepo, times(1)).deleteById(bookId); // deleteById anropas en gång med rätt ID
     }
 }

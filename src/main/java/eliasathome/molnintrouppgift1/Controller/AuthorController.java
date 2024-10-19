@@ -23,13 +23,14 @@ public class AuthorController {
     @Operation(summary = "Get all authors", description = "Retrieves a list of all authors")
     @GetMapping("")
     public ResponseEntity<List<Author>> getAllAuthors() {
-        List<Author> authors = authorService.getAllAuthors();
 
+        List<Author> authors = authorService.getAllAuthors();
         return ResponseEntity.ok(authors);
     }
     @Operation(summary = "Get an author by ID", description = "Fetches a single author by their unique ID")
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Author>> getOneAuthor(@PathVariable long id) {
+
         Optional<Author> author = authorService.getOneAuthor(id);
         return ResponseEntity.ok(author);
     }
@@ -37,8 +38,8 @@ public class AuthorController {
     @Operation(summary = "Create a new author", description = "Adds a new author to the system")
     @PostMapping("")
     public ResponseEntity<Author> createNewAuthor(@RequestBody Author newAuthor) {
-        Author author = authorService.saveAuthor(newAuthor);
 
+        Author author = authorService.saveAuthor(newAuthor);
         return ResponseEntity.ok(author);
     }
 
@@ -47,15 +48,14 @@ public class AuthorController {
     public ResponseEntity<Author> updateOneAuthor(@PathVariable Long id,
                                                @RequestBody Author newAuthor) {
         Author patchedAuthor = authorService.patchAuthor(newAuthor, id);
-
         return ResponseEntity.ok(patchedAuthor);
     }
 
     @Operation(summary = "Delete an author", description = "Removes an author from the system by their ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOneAuthor(@PathVariable long id) {
-        authorService.removeAuthor(id);
 
+        authorService.removeAuthor(id);
         return ResponseEntity.ok("Removed Successfully!");
     }
 

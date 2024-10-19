@@ -22,11 +22,12 @@ import java.util.Optional;
 public class BooksController {
 
     private final BookService bookService;
-    private final AuthorService authorService; // Lägga till AuthorService
+    private final AuthorService authorService;
 
     @Operation(summary = "Get all books", description = "Retrieves a list of all books")
     @GetMapping("")
     public ResponseEntity<List<Books>> getAllBooks() {
+
         List<Books> books = bookService.getAllBooks();
         return ResponseEntity.ok(books);
     }
@@ -34,6 +35,7 @@ public class BooksController {
     @Operation(summary = "Get a book by ID", description = "Fetches a single book by its unique ID")
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Books>> getOneBook(@PathVariable long id) {
+
         Optional<Books> book = bookService.getOneBook(id);
         return ResponseEntity.ok(book);
     }
@@ -50,9 +52,8 @@ public class BooksController {
 
         Author author = authorService.findByName(authorName);
         if (author == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Handle non-existing author
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-
         newBook.setAuthor(author);
         Books book = bookService.saveBook(newBook);
 
@@ -63,35 +64,28 @@ public class BooksController {
     @PutMapping("/{id}")
     public ResponseEntity<Books> updateOneBook(@PathVariable Long id,
                                                @RequestBody Map<String, Object> request) {
-        // Hämta boken baserat på ID
+
         Optional<Books> optionalBook = bookService.findById(id);
         if (optionalBook.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Returnera 404 om boken inte hittas
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         Books bookToUpdate = optionalBook.get();
-
         if (request.containsKey("title")) {
             bookToUpdate.setTitle((String) request.get("title"));
         }
-
-        // Kontrollera och uppdatera ISBN om det finns i begäran
         if (request.containsKey("isbn")) {
             bookToUpdate.setIsbn((String) request.get("isbn"));
         }
-
-        // Kontrollera och uppdatera författaren om författarnamn finns i begäran
         if (request.containsKey("authorName")) {
             String authorName = (String) request.get("authorName");
             Author author = authorService.findByName(authorName);
             if (author != null) {
                 bookToUpdate.setAuthor(author);
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Hantera icke-existerande författare
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
         }
-
-        // Spara den uppdaterade boken
         Books updatedBook = bookService.saveBook(bookToUpdate);
         return ResponseEntity.ok(updatedBook);
     }
@@ -99,6 +93,7 @@ public class BooksController {
     @Operation(summary = "Delete a book", description = "Removes a book from the system by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOneBook(@PathVariable long id) {
+
         bookService.removeBook(id);
         return ResponseEntity.ok("Removed Successfully!");
     }
