@@ -6,6 +6,7 @@ Detta projekt är en Maven Spring Boot-applikation med CI/CD pipeline via GitHub
 
 ## Klient för måluppfyllelse för VG:
 I ett annat repo ligger en grundläggande klient för att hantera CRUD-operationer till denna webbservice.
+
 Länk till Klientrepo: https://github.com/EliasAtHome/molnIntroUppgift1Klient
 
 eller clone-länk: https://github.com/EliasAtHome/molnIntroUppgift1Klient.git
