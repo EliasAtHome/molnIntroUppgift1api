@@ -4,7 +4,10 @@ import eliasathome.molnintrouppgift1.Models.Books;
 import eliasathome.molnintrouppgift1.Repo.BooksRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -15,13 +18,18 @@ import static org.mockito.Mockito.*;
 
 class BookServiceTest {
 
-    private BookService bookService;
-    private BooksRepo booksRepo;
+    @Mock
+    private BooksRepo booksRepo; // Mocka BooksRepo
+
+    @Mock
+    private AuthorService authorService; // Mocka AuthorService
+
+    @InjectMocks
+    private BookService bookService; // Skapa instans av BookService med mockar
 
     @BeforeEach
-    void setUp() {
-        booksRepo = Mockito.mock(BooksRepo.class);
-        bookService = new BookService(booksRepo);
+    public void setUp() {
+        MockitoAnnotations.openMocks(this); // Initiera mockarna
     }
 
     @Test
