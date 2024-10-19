@@ -4,6 +4,12 @@
 Denna webbapplikation bearbetar förfttare och böcker på en cloudbaserat databas i AWS:a molntjänst!
 Detta projekt är en Maven Spring Boot-applikation med CI/CD pipeline via GitHub Actions och AWS. Syftet är att automatisera bygg-, test- och deploy-processen i en applikation.
 
+## Klient för måluppfyllelse för VG:
+I ett annat repo ligger en grundläggande klient för att hantera CRUD-operationer till denna webbservice.
+Länk till Klientrepo: https://github.com/EliasAtHome/molnIntroUppgift1Klient
+
+eller clone-länk: https://github.com/EliasAtHome/molnIntroUppgift1Klient.git
+
 ### Teknisk Specifikation
 - Tekniker: Java, Maven, Spring Boot, GitHub Actions, AWS.
 - CI/CD Tools: GitHub Actions och AWS.
@@ -58,9 +64,12 @@ Eftersom jag använder Swagger för Endpoint-Dokumentation länkas därför Swag
   
 - Swaggerlänk till listan av alla endpoints i projektet: http://test1-env.eba-ghgfdppk.eu-north-1.elasticbeanstalk.com/swagger-ui/index.html#/
  
-![image](https://github.com/user-attachments/assets/016cae86-9e1a-4b7d-b4ce-ef6fdfd1565c)
+![image](https://github.com/user-attachments/assets/499bb814-ef03-43ea-81ec-54a6158e6995)
 
-![image](https://github.com/user-attachments/assets/c0e86481-8c81-4ec7-952f-cdc6cc741f07)
+![image](https://github.com/user-attachments/assets/ba71557f-bf76-4dee-a4ed-cf4d3760e1b2)
+
+![image](https://github.com/user-attachments/assets/d5b96aa5-83a1-47cd-a663-085e0e2cf571)
+
 
 - Hur det ser ut efter en Get/authors i webbläsaren:
 
@@ -78,6 +87,3 @@ Eftersom jag använder Swagger för Endpoint-Dokumentation länkas därför Swag
 
 ## Testning:
 I CI/CD ingår det att varje kodändring som triggas av en PUSH-event går igenom UnitTester för att säkerställa att koden är säker och följer kvaliteten som är uppsatt i Definition of Done. I detta projekt finns därför några få tester till vardera Service klass.
-
-## VG-Del av uppgift:
-I ett annat repo ligger en grundläggande klient för att hantera CRUD-operationer till denna webbservice.
